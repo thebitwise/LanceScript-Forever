@@ -22,10 +22,10 @@ local player_cur_car = 0
 local good_guns = {0, 453432689, 171789620, 487013001, -1716189206, 1119849093}
 local util_alloc = memory.alloc(8)
 
-local store_dir = filesystem.store_dir() .. '\\lancescript_reloaded\\'
+local store_dir = filesystem.store_dir() .. '\\lancescript_forever\\'
 local lyrics_dir = store_dir .. '\\lyrics\\'
 local translations_dir = store_dir .. '\\translations\\'
-local relative_translations_dir = "./store/lancescript_reloaded/translations/"
+local relative_translations_dir = "./store/lancescript_forever/translations/"
 
 if not filesystem.is_dir(store_dir) then
     filesystem.mkdirs(store_dir)
