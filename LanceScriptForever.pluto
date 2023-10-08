@@ -5333,6 +5333,7 @@ local function set_up_player_actions(pid)
 
     local voice_troll_options = {translations.ponsonbys_diss, translations.kifflom, translations.insult}
     menu.list_action(soundtrolls_root, translations.voice_trolls, {translations.voice_trolls_cmd}, "", voice_troll_options, function(index, value, click_type)
+        local target_ped = GET_PLAYER_PED_SCRIPT_INDEX(pid)
         local voice
         local speech
         local z_off = 0
