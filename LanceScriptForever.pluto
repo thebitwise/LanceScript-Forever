@@ -1126,7 +1126,7 @@ self_root:toggle_loop(translations.laser_eyes, {"lasereyes"}, translations.laser
         local ped_model = GET_ENTITY_MODEL(players.user_ped())
         local left_eye_id = 0
         local right_eye_id = 0
-        pluto_switch ped_model do 
+        switch ped_model do 
             case 1885233650:
             case -1667301416:
                 left_eye_id = 25260
@@ -2747,7 +2747,7 @@ local function task_handler(type)
     player_ped = PLAYER_PED_ID()
     for k,ped in pairs(all_peds) do
         if not IS_PED_A_PLAYER(ped) then
-            pluto_switch type do
+            switch type do
                 case "Flop":
                     TASK_SKY_DIVE(ped)
                     break
@@ -3894,7 +3894,7 @@ rideable_animals_root:list_action(translations.spawn, {"spawnranimal"}, "", {tra
     active_rideable_animal = animal
     local m_z_off = 0 
     local f_z_off = 0
-    pluto_switch index do 
+    switch index do 
         case 1: 
             m_z_off = 0.3 
             f_z_off = 0.15
@@ -3923,7 +3923,7 @@ end)
 
 function high_event()
     local pick = math.random(1, 10)
-    pluto_switch pick do
+    switch pick do
         case 3:
             for i=1, math.random(1000, 2000) do 
                 SET_CONTROL_VALUE_NEXT_FRAME(34, 34, 1.0)
@@ -4066,7 +4066,7 @@ local force_radio_options = {translations.sleepwalking, translations.dont_come_c
 menu.list_action(tweaks_root, translations.force_radio, {""}, "", force_radio_options, function(index, value, click_type)
     local station = "RADIO_01_CLASS_ROCK"
     SET_RADIO_TO_STATION_NAME(station)
-    pluto_switch index do 
+    switch index do 
         case 1: 
             SET_CUSTOM_RADIO_TRACK_LIST(station, "END_CREDITS_KILL_MICHAEL", true)
             break 
@@ -4143,7 +4143,7 @@ end)
 
 alert_options = {translations.fake_alert_1, translations.fake_alert_2, translations.fake_alert_3, translations.fake_alert_4, translations.fake_alert_5, translations.custom}
 menu.list_action(fakemessages_root, translations.fake_alert, {translations.fake_alert_cmd}, "", alert_options, function(index, value, click_type)
-    pluto_switch index do 
+    switch index do 
         case 1: 
             show_custom_alert_until_enter(translations.fake_alert_1_ct)
             break 
@@ -4605,7 +4605,7 @@ local function set_up_player_actions(pid)
         local car = GET_VEHICLE_PED_IS_IN(GET_PLAYER_PED_SCRIPT_INDEX(pid), true)
         if car ~= 0 then
             local c = {}
-            pluto_switch index do
+            switch index do
                 case 1:
                     c = players.get_position(players.user())
                     break
@@ -4664,7 +4664,7 @@ local function set_up_player_actions(pid)
         local car = GET_VEHICLE_PED_IS_IN(GET_PLAYER_PED_SCRIPT_INDEX(pid), true)
         if car ~= 0 then
             request_control_of_entity(car)
-            pluto_switch index do
+            switch index do
                 case 1: 
                     ATTACH_ENTITY_TO_ENTITY(players.user_ped(), car, 0, 0.0, -0.20, 2.00, 1.0, 1.0,1, true, true, true, false, 0, true, 0)
                     break 
@@ -4735,7 +4735,7 @@ local function set_up_player_actions(pid)
             request_control_of_entity(car)
             local d = GET_NUMBER_OF_VEHICLE_DOORS(car)
             for i=0, d do
-                pluto_switch index do
+                switch index do
                     case 1: 
                         SET_VEHICLE_DOOR_OPEN(car, i, false, true)
                         break
@@ -4920,7 +4920,7 @@ local function set_up_player_actions(pid)
     local obj_options = {translations.ramp, translations.barrier, translations.windmill, translations.radar}
     menu.list_action(ls_hostile, translations.spawn_object, {translations.spawn_object_cmd}, translations.spawn_object_desc, obj_options, function (index, value, click_type)
         local target_ped = GET_PLAYER_PED_SCRIPT_INDEX(pid)
-        pluto_switch index do 
+        switch index do 
             case 1:
                 local hash = 2282807134
                 util.request_model(hash, 2000)
@@ -5173,7 +5173,7 @@ local function set_up_player_actions(pid)
     local attacker_hashes = {1459905209, -287649847, 1264920838, -927261102, 1302784073, -1788665315, 307287994, util.joaat('csb_stripper_02'), util.joaat("CS_BradCadaver"), util.joaat('ig_lamardavis')}
     local atk_options = {translations.jack_harlow, translations.niko, translations.chad, translations.mani, translations.lester, translations.dog,  translations.mountain_lion, translations.stripper, translations.brad, translations.lamar, translations.custom, translations.custom_aircraft, translations.custom_car, translations.clone_player}
     menu.list_action(attackers_root, translations.send_normal_attacker, {translations.send_normal_attacker_cmd}, "", atk_options, function(index, value, click_type)
-            pluto_switch index do
+            switch index do
                 case 11:
                     send_attacker(attacker_hashes[index], pid, num_attackers, atkgun)
                     break
@@ -5194,7 +5194,7 @@ local function set_up_player_actions(pid)
 
     local specialatk_options = {translations.griefer_jesus, translations.jets, translations.a_10s, translations.cargo_planes, translations.british, translations.clowns, translations.swat_assault, translations.juggernaut_onslaught, translations.motorcycle_gang, translations.helicopter}
     menu.list_action(attackers_root, translations.send_special_attacker, {translations.send_special_attacker_cmd}, "", specialatk_options, function(index, value, click_type)
-            pluto_switch index do
+            switch index do
                 case 1: 
                     dispatch_griefer_jesus(pid)
                     break
@@ -5340,7 +5340,7 @@ local function set_up_player_actions(pid)
         if IS_PED_IN_ANY_VEHICLE(target_ped, false) then 
             z_off = get_model_size(GET_ENTITY_MODEL(GET_VEHICLE_PED_IS_IN(target_ped, false))).z
         end
-        pluto_switch index do
+        switch index do
             case 1:
                 voice = "S_F_M_SHOP_HIGH_WHITE_MINI_01"
                 speech = "BUMP"
@@ -5509,7 +5509,7 @@ local function set_up_player_actions(pid)
     menu.list_action(npctrolls_root, translations.send_custom_hooker, {translations.send_custom_hooker_cmd}, translations.send_custom_hooker_desc, custom_hooker_options, function(index, value, click_type)
         local hooker
         local c = GET_OFFSET_FROM_ENTITY_IN_WORLD_COORDS(GET_PLAYER_PED_SCRIPT_INDEX(pid), -5.0, 0.0, 0.0)
-        pluto_switch index do
+        switch index do
             case 1:
                 hooker = CLONE_PED(GET_PLAYER_PED_SCRIPT_INDEX(pid), true, false, true)
                 break
@@ -5547,7 +5547,7 @@ local function set_up_player_actions(pid)
     menu.list_action(npctrolls_root, translations.kidnap, {translations.kidnap}, translations.kidnap_desc, kidnap_types, function(index, value)
         local p_hash = util.joaat("s_m_y_factory_01")
         local v_hash = 0
-        pluto_switch index do 
+        switch index do 
             case 1:
                 v_hash = util.joaat("boxville3")
                 break 
@@ -5592,7 +5592,7 @@ local function set_up_player_actions(pid)
                 local ped
                 if IS_VEHICLE_SEAT_FREE(veh, i) then
                     local c = GET_ENTITY_COORDS(veh)
-                    pluto_switch index do
+                    switch index do
                         case 1:
                             ped = CREATE_RANDOM_PED(c.x, c.y, c.z)
                             break
@@ -5696,7 +5696,7 @@ end)
 local announce_options = {translations.best_mug_target, translations.poorest_player, translations.richest_player}
 menu.list_action(ap_root, translations.announce, {translations.announce_cmd}, "", announce_options, function(index, value, click_type)
     local ret = nil
-    pluto_switch index do 
+    switch index do 
         case 1: 
             ret = get_best_mug_target()
             break
@@ -6159,7 +6159,7 @@ players_thread = util.create_thread(function (thr)
                             and GET_DISTANCE_BETWEEN_COORDS(c1.x, c1.y, c1.z, c2.x, c2.y, c2.z) < 1000 
                                 and GET_SELECTED_PED_WEAPON(ped) ~= -1569615261 
                                     and GET_PED_CONFIG_FLAG(ped, 78, true) then
-                        pluto_switch anti_aim_type do 
+                        switch anti_aim_type do 
                             case 1: 
                                 util.trigger_script_event(1 << pid, {-1388926377, 4, -1762807505, 0})
                                 break
