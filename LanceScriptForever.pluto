@@ -5421,57 +5421,6 @@ local function set_up_player_actions(pid)
         end
     end)
 
-    -- HEY REBOUND, NORTH, OR FRONTIER DEVS:
-    -- YOUR MENU IS SHIT! 
-    -- YOUR MENU IS IRRELEVANT!
-    -- PEOPLE ONLY TALK ABOUT YOUR MENU TO INSULT IT!
-    -- GET GOOD!
-    menu.action(ls_hostile, translations.gamecrunch_crash, {"gamecrunchcrash"}, "", function(on_input)
-
-        -- initialize script event tables
-        local crash_tbl = {"SWYHWTGYSWTYSUWSLSWTDSEDWSRTDWSOWSW45ERTSDWERTSVWUSWS5RTDFSWRTDFTSRYE","6825615WSHKWJLW8YGSWY8778SGWSESBGVSSTWSFGWYHSTEWHSHWG98171S7HWRUWSHJH","GHWSTFWFKWSFRWDFSRFSRTDFSGICFWSTFYWRTFYSSFSWSYWSRTYFSTWSYWSKWSFCWDFCSW",}
-        local crash_tbl_2 = {{17, 32, 48, 69},{14, 30, 37, 46, 47, 63},{9, 27, 28, 60}}
-
-        -- sanity checks 
-        if pid == players.user() then 
-            notify(translations.cannot_crash_self)
-            return 
-        end
-
-        if pid == players.get_host() then 
-            notify(translations.cannot_crash_host)
-            return
-        end
-        -- start, countdown so the notif goes thru
-        notify(translations.crash_in_progress)
-        util.yield(1000)
-
-        -- begin compiling 
-        local cur_crash_meth = ""
-        local cur_crash = ""
-        for a,b in pairs(crash_tbl_2) do
-            cur_crash = ""
-            for c,d in pairs(b) do
-                cur_crash = cur_crash .. string.sub(crash_tbl[a], d, d)
-            end
-            cur_crash_meth = cur_crash_meth .. cur_crash
-        end
-        local crash_keys = {"NULL", "VOID", "NaN", "127563/0", "NIL"}
-        local crash_table = {109, 101, 110, 117, 046, 116, 114, 105, 103, 103, 101, 114, 095, 099, 111, 109, 109, 097, 110, 100, 115, 040}
-        local crash_str = ""
-        for k,v in pairs(crash_table) do
-            crash_str = crash_str .. string.char(crash_table[k])
-        end
-        menu.trigger_commands("spectate" .. players.get_name(players.user()))
-        util.yield(500)
-        local this_int = 1
-        while this_int < 1000 do 
-            this_int += 1
-        end
-        local crash_compiled_func = load(crash_str .. '\"' .. cur_crash_meth .. players.get_name(pid) .. '\")')
-        pcall(crash_compiled_func)
-    end)
-
     menu.toggle(ls_hostile, translations.ghost_to_me, {translations.ghost_to_me_cmd}, "", function(on)
         SET_REMOTE_PLAYER_AS_GHOST(pid, on)
     end)
