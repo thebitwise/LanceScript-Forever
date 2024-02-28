@@ -4920,27 +4920,30 @@ local function set_up_player_actions(pid)
     local obj_options = {translations.ramp, translations.barrier, translations.windmill, translations.radar}
     menu.list_action(ls_hostile, translations.spawn_object, {translations.spawn_object_cmd}, translations.spawn_object_desc, obj_options, function (index, value, click_type)
         local target_ped = GET_PLAYER_PED_SCRIPT_INDEX(pid)
+        local hash, obj
         switch index do 
             case 1:
-                local hash = 2282807134
+                hash = 2282807134
                 util.request_model(hash, 2000)
-                local ramp = spawn_object_in_front_of_ped(target_ped, hash, 90, 50.0, -1, true)
-                local c = GET_ENTITY_COORDS(ramp, true)
-                SET_ENTITY_COORDS_NO_OFFSET(ramp, c['x'], c['y'], c['z']-0.2, false, false, false)
+                obj = spawn_object_in_front_of_ped(target_ped, hash, 90, 50.0, -1, true)
+                do
+                    local c = GET_ENTITY_COORDS(obj, true)
+                    SET_ENTITY_COORDS_NO_OFFSET(obj, c['x'], c['y'], c['z']-0.2, false, false, false)
+                end
                 break
             case 2: 
-                local hash = 3729169359
-                local obj = spawn_object_in_front_of_ped(target_ped, hash, 0, 5.0, -0.5, false)
+                hash = 3729169359
+                obj = spawn_object_in_front_of_ped(target_ped, hash, 0, 5.0, -0.5, false)
                 FREEZE_ENTITY_POSITION(obj, true)
                 break
             case 3: 
-                local hash = 1952396163
-                local obj = spawn_object_in_front_of_ped(target_ped, hash, 0, 5.0, -30, false)
+                hash = 1952396163
+                obj = spawn_object_in_front_of_ped(target_ped, hash, 0, 5.0, -30, false)
                 FREEZE_ENTITY_POSITION(obj, true)
                 break
             case 4: 
-                local hash = 2306058344
-                local obj = spawn_object_in_front_of_ped(target_ped, hash, 0, 0.0, -5.0, false)
+                hash = 2306058344
+                obj = spawn_object_in_front_of_ped(target_ped, hash, 0, 0.0, -5.0, false)
                 FREEZE_ENTITY_POSITION(obj, true)
                 break
         end
@@ -5207,20 +5210,22 @@ local function set_up_player_actions(pid)
                     send_aircraft_attacker(util.joaat("cargoplane"), -163714847, pid, num_attackers)
                     break
                 case 5: 
-                    local hash = 0x9C9EFFD8
-                    local player_ped = GET_PLAYER_PED_SCRIPT_INDEX(pid)
-                    util.request_model(hash, 2000)
-                    util.request_model(util.joaat("prop_flag_uk"), 2000)
-                    local coords = GET_OFFSET_FROM_ENTITY_IN_WORLD_COORDS(player_ped, 0.0, 2.0, 0.0)
-                    for i=1, 5 do
-                        local ped = entities.create_ped(28, hash, coords, 30.0)
-                        local obj = CREATE_OBJECT_NO_OFFSET(util.joaat("prop_flag_uk"), coords['x'], coords['y'], coords['z'], true, false, false)
-                        ATTACH_ENTITY_TO_ENTITY(obj, ped, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, false, false, true, false, 0, true, 0)
-                        SET_PED_AS_ENEMY(ped, true)
-                        SET_PED_FLEE_ATTRIBUTES(ped, 0, false)
-                        SET_PED_COMBAT_ATTRIBUTES(ped, 46, true)
-                        GIVE_WEAPON_TO_PED(ped, -1834847097, 0, false, true)
-                        TASK_COMBAT_PED(ped, player_ped, 0, 16)
+                    do
+                        local hash = 0x9C9EFFD8
+                        local player_ped = GET_PLAYER_PED_SCRIPT_INDEX(pid)
+                        util.request_model(hash, 2000)
+                        util.request_model(util.joaat("prop_flag_uk"), 2000)
+                        local coords = GET_OFFSET_FROM_ENTITY_IN_WORLD_COORDS(player_ped, 0.0, 2.0, 0.0)
+                        for i=1, 5 do
+                            local ped = entities.create_ped(28, hash, coords, 30.0)
+                            local obj = CREATE_OBJECT_NO_OFFSET(util.joaat("prop_flag_uk"), coords['x'], coords['y'], coords['z'], true, false, false)
+                            ATTACH_ENTITY_TO_ENTITY(obj, ped, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, false, false, true, false, 0, true, 0)
+                            SET_PED_AS_ENEMY(ped, true)
+                            SET_PED_FLEE_ATTRIBUTES(ped, 0, false)
+                            SET_PED_COMBAT_ATTRIBUTES(ped, 46, true)
+                            GIVE_WEAPON_TO_PED(ped, -1834847097, 0, false, true)
+                            TASK_COMBAT_PED(ped, player_ped, 0, 16)
+                        end
                     end
                     break
                 case 6: 
@@ -5593,18 +5598,22 @@ local function set_up_player_actions(pid)
                             ped = CREATE_RANDOM_PED(c.x, c.y, c.z)
                             break
                         case 2:
-                            local cops = {'s_f_y_cop_01', 's_m_m_snowcop_0', 's_m_y_hwaycop_01', 'csb_cop', 's_m_y_cop_01'}
-                            local pick = cops[math.random(1, #cops)]
-                            util.request_model(util.joaat(pick), 2000)
-                            ped = entities.create_ped(6, util.joaat(pick), c, 0)
-                            SET_PED_AS_COP(ped, true)
-                            GIVE_WEAPON_TO_PED(ped, util.joaat("weapon_pistol"), 1000, false, false)
+                            do
+                                local cops = {'s_f_y_cop_01', 's_m_m_snowcop_0', 's_m_y_hwaycop_01', 'csb_cop', 's_m_y_cop_01'}
+                                local pick = cops[math.random(1, #cops)]
+                                util.request_model(util.joaat(pick), 2000)
+                                ped = entities.create_ped(6, util.joaat(pick), c, 0)
+                                SET_PED_AS_COP(ped, true)
+                                GIVE_WEAPON_TO_PED(ped, util.joaat("weapon_pistol"), 1000, false, false)
+                            end
                             break
                         case 3:
-                            local strippers = {'csb_stripper_01', 'csb_stripper_02', 's_f_y_stripper_01', 's_f_y_stripper_02', 's_f_y_stripperlite'}
-                            local pick = strippers[math.random(1, #strippers)]
-                            util.request_model(util.joaat(pick), 2000)
-                            ped = entities.create_ped(6, util.joaat(pick), c, 0)
+                            do
+                                local strippers = {'csb_stripper_01', 'csb_stripper_02', 's_f_y_stripper_01', 's_f_y_stripper_02', 's_f_y_stripperlite'}
+                                local pick = strippers[math.random(1, #strippers)]
+                                util.request_model(util.joaat(pick), 2000)
+                                ped = entities.create_ped(6, util.joaat(pick), c, 0)
+                            end
                             break
                         case 4:
                             util.request_model(util.joaat('ig_lamardavis'), 2000)
@@ -6160,8 +6169,10 @@ players_thread = util.create_thread(function (thr)
                                 util.trigger_script_event(1 << pid, {-1388926377, 4, -1762807505, 0})
                                 break
                             case 2: 
-                                local coords = GET_OFFSET_FROM_ENTITY_IN_WORLD_COORDS(GET_PLAYER_PED_SCRIPT_INDEX(pid), 0.0, 0.0, 2.8)
-                                ADD_EXPLOSION(coords['x'], coords['y'], coords['z'], 70, 100.0, false, true, 0.0)
+                                do
+                                    local coords = GET_OFFSET_FROM_ENTITY_IN_WORLD_COORDS(GET_PLAYER_PED_SCRIPT_INDEX(pid), 0.0, 0.0, 2.8)
+                                    ADD_EXPLOSION(coords['x'], coords['y'], coords['z'], 70, 100.0, false, true, 0.0)
+                                end
                                 break
                             case 3:
                                 menu.trigger_commands("kill " .. players.get_name(pid))
